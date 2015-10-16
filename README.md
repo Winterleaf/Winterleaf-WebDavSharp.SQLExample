@@ -15,7 +15,7 @@ To Set up this project you need to deploy the following SQL Projects to a MS SQL
 
 Once they are deployed you need to do some initial setup.
 
-#Step 1 - App.Config
+# Step 1 - App.Config
 
 Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection string to the "WebDAVSharp.SQL.Database.File" database
 
@@ -33,7 +33,7 @@ Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection s
     <!--**************************************************************************************************************************-->
   </connectionStrings>
 
-  #Step 2 - Default Catalog Collection
+  # Step 2 - Default Catalog Collection
 
   Create a default Catalog Collection for storing the file data
 
@@ -41,7 +41,7 @@ Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection s
 
   insert into [CatalogCollection] ([Name]) values ('Default Catalog Collection');
 
-  #Step 3 - Catalog
+  # Step 3 - Catalog
 
   Create the actual Catalog.
 
@@ -58,7 +58,7 @@ select
 from
 	CatalogCollection;
 
-#Step 4 - Root Folder
+# Step 4 - Root Folder
 
 Create the root folder that everything is based off.
 
@@ -79,7 +79,7 @@ select top 1
 from 
 	[CatalogCollection];
 
-#Step 5 - Active Directory
+# Step 5 - Active Directory
 
 Syncronize the Active Directory Domain accounts to the database
 This process works identical to how Microsoft Sharepoint does.... But simpler
@@ -88,7 +88,7 @@ From the command prompt where the executable is:
 
 WebDAVSharp.SQL.exe -SyncADS
 
-#Step 6 - If you want to be able to access it from another computer you need to change the ServiceImplementation.cs
+# Step 6 - If you want to be able to access it from another computer you need to change the ServiceImplementation.cs
 
  public class ServiceImplementation : IWindowsService
     {
@@ -97,12 +97,12 @@ WebDAVSharp.SQL.exe -SyncADS
         
 Change the URL to the name of your computer.
 
-#Step 7 - Run the application in Debug mode.
+# Step 7 - Run the application in Debug mode.
 
 WebDAVSharp.SQL.exe -Debug
 
 
-#Step 8 - Test
+# Step 8 - Test
 
 From the run command type \\localhost:8880\WebDavRoot\
 
