@@ -23,7 +23,7 @@ Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection s
     <!--**************************************************************************************************************************-->
     <!--**************************************************************************************************************************-->
     <!--**************************************************************************************************************************-->
-    <!--Please correct this connectionstring to where you published the databases.-->
+    <!--Please correct this connectionstring to where you published the WebDAVSharp.SQL.Database.File database.-->
     <!--<add 
     name="OnlineFilesEntities" 
     connectionString="metadata=res://*/OnlineFiles.csdl|res://*/OnlineFiles.ssdl|res://*/OnlineFiles.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=!!!!!!SERVER NAME!!!!!;initial catalog=!!!!DATABASE NAME!!!!!;persist security info=True;user id=!!!!USER ID!!!!!;password=!!!!PASSWORD!!!!;MultipleActiveResultSets=True;App=EntityFramework&quot;" 
