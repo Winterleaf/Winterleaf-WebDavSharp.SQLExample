@@ -33,7 +33,7 @@ Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection s
     <!--**************************************************************************************************************************-->
   </connectionStrings>
 
-  # Step 2 - Default Catalog Collection
+# Step 2 - Default Catalog Collection
 
   Create a default Catalog Collection for storing the file data
 
@@ -41,7 +41,7 @@ Open the "App.Config"  in the 'WebDAVSharp.SQL' Project and add the connection s
 
   insert into [CatalogCollection] ([Name]) values ('Default Catalog Collection');
 
-  # Step 3 - Catalog
+# Step 3 - Catalog
 
   Create the actual Catalog.
 
