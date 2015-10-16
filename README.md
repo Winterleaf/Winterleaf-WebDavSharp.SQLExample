@@ -9,8 +9,9 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OT
 
 To Set up this project you need to deploy the following SQL Projects to a MS SQL Server 2008 or greater server:
 
-*WebDAVSharp.SQL.Database.Catalog
-*WebDAVSharp.SQL.Database.File
+-WebDAVSharp.SQL.Database.Catalog
+
+-WebDAVSharp.SQL.Database.File
 
 Once they are deployed you need to do some initial setup.
 
