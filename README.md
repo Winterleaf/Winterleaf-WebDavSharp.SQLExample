@@ -2,9 +2,9 @@
 
 #A SQL Server base Web DAV server with permissions, etc
 
-!!!!!!!!IMPORTANT!!!!!!!
-This application only works in 64 Bit Mode.
-!!!!!!!!IMPORTANT!!!!!!!
+# !!!!!!!!IMPORTANT!!!!!!!
+# This application only works in 64 Bit Mode.
+# !!!!!!!!IMPORTANT!!!!!!!
 
 WE DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS[,][.] 
 IN NO EVENT SHALL <copyright holder> BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM 
