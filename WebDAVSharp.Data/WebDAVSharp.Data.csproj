@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B45C908C-A547-46B7-800C-559022B1D0E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebDAVSharp.Data</RootNamespace>
+    <AssemblyName>WebDAVSharp.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebDAVSharp.Server">
+      <HintPath>..\..\WebDAVSharp.Server\bin\Release\WebDAVSharp.Server.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Catalog.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Catalog_Ext.cs" />
+    <Compile Include="CatalogCollection.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatalogStatu.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\CatalogStatus.cs" />
+    <Compile Include="Enums\FileAccessFlag.cs" />
+    <Compile Include="Enums\FolderAccessFlag.cs" />
+    <Compile Include="Extensions\Context_Ext.cs" />
+    <Compile Include="Extensions\File_Ext.cs" />
+    <Compile Include="Extensions\IFileSystemObject.cs" />
+    <Compile Include="Extensions\SecurityObject_Ext.cs" />
+    <Compile Include="File.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FileCatalogEntry.cs">
+      <DependentUpon>OnlineFiles_Catalog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FileData.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FileSecurity.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Folder.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Folder_Ext.cs" />
+    <Compile Include="FolderSecurity.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetUserValidation_Result.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelperClasses\ActiveDirectory.cs" />
+    <Compile Include="HelperClasses\CacheBase.cs" />
+    <Compile Include="HelperClasses\FlagsHelper.cs" />
+    <Compile Include="HelperClasses\GroupPrincipalEx.cs" />
+    <Compile Include="HelperClasses\Impersonator.cs" />
+    <Compile Include="HelperClasses\SqlStoreFileInfo.cs" />
+    <Compile Include="HelperClasses\SqlStoreFileStream.cs" />
+    <Compile Include="ObjectLockInfo.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineFiles.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineFiles.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineFiles.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\OnlineFiles_CatalogEntities_Ext.cs" />
+    <Compile Include="OnlineFiles_Catalog.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles_Catalog.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineFiles_Catalog.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles_Catalog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineFiles_Catalog.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineFiles_Catalog.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Permission.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityObject.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityObjectMembership.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SecurityObjectPermission.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Security\FromType.cs" />
+    <Compile Include="Security\ICheckPermissions.cs" />
+    <Compile Include="Security\IdentityBase.cs" />
+    <Compile Include="Security\PermissionType.cs" />
+    <Compile Include="Security\Principal.cs" />
+    <Compile Include="Security\PrincipleFactory.cs" />
+    <Compile Include="Security\UserIdentity.cs" />
+    <Compile Include="SQLObjects\SpDoAnyChildrenHaveLocksResult.cs" />
+    <Compile Include="SQLObjects\sp_GetChildObjects_Result.cs" />
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>OnlineFiles.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="OnlineFiles.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineFiles.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="OnlineFiles.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineFiles.edmx</DependentUpon>
+      <LastGenOutput>OnlineFiles.Context.cs</LastGenOutput>
+    </None>
+    <None Include="OnlineFiles.edmx.diagram">
+      <DependentUpon>OnlineFiles.edmx</DependentUpon>
+    </None>
+    <None Include="OnlineFiles.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineFiles.edmx</DependentUpon>
+      <LastGenOutput>OnlineFiles.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="OnlineFiles_Catalog.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineFiles_Catalog.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="OnlineFiles_Catalog.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineFiles_Catalog.edmx</DependentUpon>
+      <LastGenOutput>OnlineFiles_Catalog.Context.cs</LastGenOutput>
+    </None>
+    <None Include="OnlineFiles_Catalog.edmx.diagram">
+      <DependentUpon>OnlineFiles_Catalog.edmx</DependentUpon>
+    </None>
+    <None Include="OnlineFiles_Catalog.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineFiles_Catalog.edmx</DependentUpon>
+      <LastGenOutput>OnlineFiles_Catalog.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

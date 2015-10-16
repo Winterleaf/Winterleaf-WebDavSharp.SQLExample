@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a562fc294dcf4ef3bbdbd0c293f37599" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="OnlineFilesModel.Catalog" Width="1.5" PointX="11.875" PointY="11.25" />
+        <EntityTypeShape EntityType="OnlineFilesModel.CatalogStatu" Width="2.125" PointX="8.375" PointY="13" />
+        <EntityTypeShape EntityType="OnlineFilesModel.File" Width="1.5" PointX="14.875" PointY="5.625" />
+        <EntityTypeShape EntityType="OnlineFilesModel.FileData" Width="1.5" PointX="7.875" PointY="9.75" />
+        <EntityTypeShape EntityType="OnlineFilesModel.Folder" Width="2.5" PointX="17.875" PointY="1.625" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Catalog_CatalogStatus" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FileData_Catalog" />
+        <AssociationConnector Association="OnlineFilesModel.FK_File_Folder" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FileData_File" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Folder_Folder" />
+        <EntityTypeShape EntityType="OnlineFilesModel.Permission" Width="2.875" PointX="3" PointY="0.5" />
+        <EntityTypeShape EntityType="OnlineFilesModel.SecurityObject" Width="2.75" PointX="10.5" PointY="1.625" />
+        <EntityTypeShape EntityType="OnlineFilesModel.SecurityObjectPermission" Width="2.125" PointX="7.625" PointY="0.5" />
+        <AssociationConnector Association="OnlineFilesModel.FK_SecurityObjectPermission_Permission" />
+        <AssociationConnector Association="OnlineFilesModel.FK_SecurityObjectPermission_SecurityObject" />
+        <EntityTypeShape EntityType="OnlineFilesModel.CatalogCollection" Width="1.5" PointX="17.75" PointY="8.25" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Catalog_CatalogCollection" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Folder_CatalogCollection" />
+        <EntityTypeShape EntityType="OnlineFilesModel.ObjectLockInfo" Width="4" PointX="2.875" PointY="2.75" />
+        <AssociationConnector Association="OnlineFilesModel.FK_ObjectLockInfo_SecurityObject" />
+        <AssociationConnector Association="OnlineFilesModel.FK_File_SecurityObject" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Folder_SecurityObject" />
+        <AssociationConnector Association="OnlineFilesModel.FK_File_SecurityObject1" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Folder_SecurityObject1" />
+        <AssociationConnector Association="OnlineFilesModel.FK_SecurityObject_Folder" />
+        <EntityTypeShape EntityType="OnlineFilesModel.FileSecurity" Width="1.5" PointX="11.75" PointY="6.125" />
+        <EntityTypeShape EntityType="OnlineFilesModel.FolderSecurity" Width="1.5" PointX="21.5" PointY="1.375" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FileSecurity_File" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FileSecurity_SecurityObject" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FolderSecurity_Folder" />
+        <AssociationConnector Association="OnlineFilesModel.FK_FolderSecurity_SecurityObject" />
+        <EntityTypeShape EntityType="OnlineFilesModel.SecurityObjectMembership" Width="2.5" PointX="14.75" PointY="2.875" />
+        <AssociationConnector Association="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject" />
+        <AssociationConnector Association="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject1" />
+        <EntityTypeShape EntityType="OnlineFilesModel.sysdiagram" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="OnlineFilesModel.FK_File_SecurityObject2" />
+        <AssociationConnector Association="OnlineFilesModel.FK_Folder_SecurityObject2" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

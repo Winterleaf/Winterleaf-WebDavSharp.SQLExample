@@ -1,0 +1,1385 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlineFilesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Catalog">
+          <Key>
+            <PropertyRef Name="pk_CatalogId" />
+          </Key>
+          <Property Name="pk_CatalogId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_CatalogCollectionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Offline" Type="bit" Nullable="false" />
+          <Property Name="Server" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DatabaseName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fk_CatalogStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatalogCollection">
+          <Key>
+            <PropertyRef Name="pk_CatalogCollectionId" />
+          </Key>
+          <Property Name="pk_CatalogCollectionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatalogStatus">
+          <Key>
+            <PropertyRef Name="pk_CatalogStatusId" />
+          </Key>
+          <Property Name="pk_CatalogStatusId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="pk_FileId" />
+          </Key>
+          <Property Name="pk_FileId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FolderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="isRevisioned" Type="bit" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="MimeType" Type="varchar(max)" Nullable="false" />
+          <Property Name="Win32FileAttribute" Type="int" Nullable="false" />
+          <Property Name="Owner" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DeletedDt" Type="datetime" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileData">
+          <Key>
+            <PropertyRef Name="pk_FileDataId" />
+          </Key>
+          <Property Name="pk_FileDataId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Revision" Type="int" Nullable="false" />
+          <Property Name="Size" Type="int" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+          <Property Name="fk_CatalogId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="fk_ContentId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FileSecurity">
+          <Key>
+            <PropertyRef Name="pk_FileSecurityId" />
+          </Key>
+          <Property Name="pk_FileSecurityId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SecurityObjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="canRead" Type="bit" Nullable="false" />
+          <Property Name="canWrite" Type="bit" Nullable="false" />
+          <Property Name="CanDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="pk_FolderId" />
+          </Key>
+          <Property Name="pk_FolderId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ParentFolderId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+          <Property Name="fk_CatalogCollectionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Win32FileAttribute" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="DeletedDt" Type="datetime" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="Owner" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedBy" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FolderSecurity">
+          <Key>
+            <PropertyRef Name="pk_FolderSecurityId" />
+          </Key>
+          <Property Name="pk_FolderSecurityId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FolderId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SecurityObjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="canListObjects" Type="bit" Nullable="false" />
+          <Property Name="canCreateFiles" Type="bit" Nullable="false" />
+          <Property Name="canCreateFolders" Type="bit" Nullable="false" />
+          <Property Name="canDelete" Type="bit" Nullable="false" />
+          <Property Name="canChangePermissions" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ObjectLockInfo">
+          <Key>
+            <PropertyRef Name="ObjectGuid" />
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="ObjectGuid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Token" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="isFolder" Type="bit" Nullable="false" />
+          <Property Name="LockScope" Type="int" Nullable="false" />
+          <Property Name="LockType" Type="int" Nullable="false" />
+          <Property Name="Owner" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestedLockTimeout" Type="float" />
+          <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="Depth" Type="int" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateDt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SecurityObject">
+          <Key>
+            <PropertyRef Name="SecurityObjectId" />
+          </Key>
+          <Property Name="SecurityObjectId" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ActiveDirectoryId" Type="uniqueidentifier" />
+          <Property Name="FullName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Username" Type="varchar(max)" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar(max)" Nullable="false" />
+          <Property Name="IsGroup" Type="bit" Nullable="false" />
+          <Property Name="LastLogInOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="HomeFolder" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SecurityObjectMembership">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SecurityObjectId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberOfSecurityObjectId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SecurityObjectPermission">
+          <Key>
+            <PropertyRef Name="SecurityObjectPermission" />
+          </Key>
+          <Property Name="SecurityObjectPermission" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+          <Property Name="SecurityObjectId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Catalog_CatalogCollection">
+          <End Role="CatalogCollection" Type="Self.CatalogCollection" Multiplicity="1" />
+          <End Role="Catalog" Type="Self.Catalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogCollection">
+              <PropertyRef Name="pk_CatalogCollectionId" />
+            </Principal>
+            <Dependent Role="Catalog">
+              <PropertyRef Name="fk_CatalogCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Catalog_CatalogStatus">
+          <End Role="CatalogStatus" Type="Self.CatalogStatus" Multiplicity="1" />
+          <End Role="Catalog" Type="Self.Catalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogStatus">
+              <PropertyRef Name="pk_CatalogStatusId" />
+            </Principal>
+            <Dependent Role="Catalog">
+              <PropertyRef Name="fk_CatalogStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="fk_FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_SecurityObject1">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="0..1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_SecurityObject2">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="File" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileData_Catalog">
+          <End Role="Catalog" Type="Self.Catalog" Multiplicity="1" />
+          <End Role="FileData" Type="Self.FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catalog">
+              <PropertyRef Name="pk_CatalogId" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="fk_CatalogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileData_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="FileData" Type="Self.FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="pk_FileId" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="fk_FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileSecurity_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="FileSecurity" Type="Self.FileSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="pk_FileId" />
+            </Principal>
+            <Dependent Role="FileSecurity">
+              <PropertyRef Name="fk_FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileSecurity_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="FileSecurity" Type="Self.FileSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="FileSecurity">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_CatalogCollection">
+          <End Role="CatalogCollection" Type="Self.CatalogCollection" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogCollection">
+              <PropertyRef Name="pk_CatalogCollectionId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="fk_CatalogCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="Folder1" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="Folder1">
+              <PropertyRef Name="fk_ParentFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject1">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="0..1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="DeletedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject2">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="Folder" Type="Self.Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderSecurity_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="1" />
+          <End Role="FolderSecurity" Type="Self.FolderSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="FolderSecurity">
+              <PropertyRef Name="fk_FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderSecurity_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="FolderSecurity" Type="Self.FolderSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="FolderSecurity">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ObjectLockInfo_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="ObjectLockInfo" Type="Self.ObjectLockInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="ObjectLockInfo">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObject_Folder">
+          <End Role="Folder" Type="Self.Folder" Multiplicity="0..1" />
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="SecurityObject">
+              <PropertyRef Name="HomeFolder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectMembership_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="SecurityObjectMembership" Type="Self.SecurityObjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectMembership">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectMembership_SecurityObject1">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="SecurityObjectMembership" Type="Self.SecurityObjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectMembership">
+              <PropertyRef Name="MemberOfSecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="SecurityObjectPermission" Type="Self.SecurityObjectPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="SecurityObjectPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectPermission_SecurityObject">
+          <End Role="SecurityObject" Type="Self.SecurityObject" Multiplicity="1" />
+          <End Role="SecurityObjectPermission" Type="Self.SecurityObjectPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectPermission">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetSecurityTokens" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SecurityObjectId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="GetUserValidation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="LDAP" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="OnlineFilesModelStoreContainer">
+          <EntitySet Name="Catalog" EntityType="Self.Catalog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogCollection" EntityType="Self.CatalogCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogStatus" EntityType="Self.CatalogStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileData" EntityType="Self.FileData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileSecurity" EntityType="Self.FileSecurity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folder" EntityType="Self.Folder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FolderSecurity" EntityType="Self.FolderSecurity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ObjectLockInfo" EntityType="Self.ObjectLockInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityObject" EntityType="Self.SecurityObject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityObjectMembership" EntityType="Self.SecurityObjectMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SecurityObjectPermission" EntityType="Self.SecurityObjectPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Catalog_CatalogCollection" Association="Self.FK_Catalog_CatalogCollection">
+            <End Role="CatalogCollection" EntitySet="CatalogCollection" />
+            <End Role="Catalog" EntitySet="Catalog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Catalog_CatalogStatus" Association="Self.FK_Catalog_CatalogStatus">
+            <End Role="CatalogStatus" EntitySet="CatalogStatus" />
+            <End Role="Catalog" EntitySet="Catalog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_Folder" Association="Self.FK_File_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_SecurityObject" Association="Self.FK_File_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_SecurityObject1" Association="Self.FK_File_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_SecurityObject2" Association="Self.FK_File_SecurityObject2">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="File" EntitySet="File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileData_Catalog" Association="Self.FK_FileData_Catalog">
+            <End Role="Catalog" EntitySet="Catalog" />
+            <End Role="FileData" EntitySet="FileData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileData_File" Association="Self.FK_FileData_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="FileData" EntitySet="FileData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileSecurity_File" Association="Self.FK_FileSecurity_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="FileSecurity" EntitySet="FileSecurity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileSecurity_SecurityObject" Association="Self.FK_FileSecurity_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="FileSecurity" EntitySet="FileSecurity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_CatalogCollection" Association="Self.FK_Folder_CatalogCollection">
+            <End Role="CatalogCollection" EntitySet="CatalogCollection" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Folder" Association="Self.FK_Folder_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Folder1" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject" Association="Self.FK_Folder_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject1" Association="Self.FK_Folder_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject2" Association="Self.FK_Folder_SecurityObject2">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="Folder" EntitySet="Folder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderSecurity_Folder" Association="Self.FK_FolderSecurity_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="FolderSecurity" EntitySet="FolderSecurity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderSecurity_SecurityObject" Association="Self.FK_FolderSecurity_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="FolderSecurity" EntitySet="FolderSecurity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ObjectLockInfo_SecurityObject" Association="Self.FK_ObjectLockInfo_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="ObjectLockInfo" EntitySet="ObjectLockInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObject_Folder" Association="Self.FK_SecurityObject_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectMembership_SecurityObject" Association="Self.FK_SecurityObjectMembership_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="SecurityObjectMembership" EntitySet="SecurityObjectMembership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectMembership_SecurityObject1" Association="Self.FK_SecurityObjectMembership_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="SecurityObjectMembership" EntitySet="SecurityObjectMembership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectPermission_Permission" Association="Self.FK_SecurityObjectPermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="SecurityObjectPermission" EntitySet="SecurityObjectPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectPermission_SecurityObject" Association="Self.FK_SecurityObjectPermission_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObject" />
+            <End Role="SecurityObjectPermission" EntitySet="SecurityObjectPermission" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineFilesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OnlineFilesEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Catalogs" EntityType="OnlineFilesModel.Catalog" />
+          <EntitySet Name="CatalogStatus" EntityType="OnlineFilesModel.CatalogStatu" />
+          <EntitySet Name="Files" EntityType="OnlineFilesModel.File" />
+          <EntitySet Name="FileDatas" EntityType="OnlineFilesModel.FileData" />
+          <EntitySet Name="Folders" EntityType="OnlineFilesModel.Folder" />
+          <AssociationSet Name="FK_Catalog_CatalogStatus" Association="OnlineFilesModel.FK_Catalog_CatalogStatus">
+            <End Role="CatalogStatu" EntitySet="CatalogStatus" />
+            <End Role="Catalog" EntitySet="Catalogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileData_Catalog" Association="OnlineFilesModel.FK_FileData_Catalog">
+            <End Role="Catalog" EntitySet="Catalogs" />
+            <End Role="FileData" EntitySet="FileDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_Folder" Association="OnlineFilesModel.FK_File_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileData_File" Association="OnlineFilesModel.FK_FileData_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="FileData" EntitySet="FileDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_Folder" Association="OnlineFilesModel.FK_Folder_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="Folder1" EntitySet="Folders" />
+          </AssociationSet>
+          <EntitySet Name="Permissions" EntityType="OnlineFilesModel.Permission" />
+          <EntitySet Name="SecurityObjects" EntityType="OnlineFilesModel.SecurityObject" />
+          <EntitySet Name="SecurityObjectPermissions" EntityType="OnlineFilesModel.SecurityObjectPermission" />
+          <AssociationSet Name="FK_SecurityObjectPermission_Permission" Association="OnlineFilesModel.FK_SecurityObjectPermission_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="SecurityObjectPermission" EntitySet="SecurityObjectPermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectPermission_SecurityObject" Association="OnlineFilesModel.FK_SecurityObjectPermission_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="SecurityObjectPermission" EntitySet="SecurityObjectPermissions" />
+          </AssociationSet>
+          <FunctionImport Name="GetUserValidation" EntitySet="SecurityObjects" ReturnType="Collection(OnlineFilesModel.SecurityObject)">
+          <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="LDAP" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CatalogCollections" EntityType="OnlineFilesModel.CatalogCollection" />
+          <AssociationSet Name="FK_Catalog_CatalogCollection" Association="OnlineFilesModel.FK_Catalog_CatalogCollection">
+            <End Role="CatalogCollection" EntitySet="CatalogCollections" />
+            <End Role="Catalog" EntitySet="Catalogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_CatalogCollection" Association="OnlineFilesModel.FK_Folder_CatalogCollection">
+            <End Role="CatalogCollection" EntitySet="CatalogCollections" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <EntitySet Name="ObjectLockInfoes" EntityType="OnlineFilesModel.ObjectLockInfo" />
+          
+          <AssociationSet Name="FK_ObjectLockInfo_SecurityObject" Association="OnlineFilesModel.FK_ObjectLockInfo_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="ObjectLockInfo" EntitySet="ObjectLockInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_SecurityObject" Association="OnlineFilesModel.FK_File_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject" Association="OnlineFilesModel.FK_Folder_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_File_SecurityObject1" Association="OnlineFilesModel.FK_File_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject1" Association="OnlineFilesModel.FK_Folder_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObject_Folder" Association="OnlineFilesModel.FK_SecurityObject_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+          </AssociationSet>
+          <EntitySet Name="FileSecurities" EntityType="OnlineFilesModel.FileSecurity" />
+          <EntitySet Name="FolderSecurities" EntityType="OnlineFilesModel.FolderSecurity" />
+          <AssociationSet Name="FK_FileSecurity_File" Association="OnlineFilesModel.FK_FileSecurity_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="FileSecurity" EntitySet="FileSecurities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileSecurity_SecurityObject" Association="OnlineFilesModel.FK_FileSecurity_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="FileSecurity" EntitySet="FileSecurities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderSecurity_Folder" Association="OnlineFilesModel.FK_FolderSecurity_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="FolderSecurity" EntitySet="FolderSecurities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FolderSecurity_SecurityObject" Association="OnlineFilesModel.FK_FolderSecurity_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="FolderSecurity" EntitySet="FolderSecurities" />
+          </AssociationSet>
+          <EntitySet Name="SecurityObjectMemberships" EntityType="OnlineFilesModel.SecurityObjectMembership" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <AssociationSet Name="FK_SecurityObjectMembership_SecurityObject" Association="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="SecurityObjectMembership" EntitySet="SecurityObjectMemberships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SecurityObjectMembership_SecurityObject1" Association="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject1">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="SecurityObjectMembership" EntitySet="SecurityObjectMemberships" />
+          </AssociationSet>
+          <FunctionImport Name="GetSecurityTokens" ReturnType="Collection(Guid)">
+          <Parameter Name="SecurityObjectId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <EntitySet Name="sysdiagrams" EntityType="OnlineFilesModel.sysdiagram" />
+          <AssociationSet Name="FK_File_SecurityObject2" Association="OnlineFilesModel.FK_File_SecurityObject2">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Folder_SecurityObject2" Association="OnlineFilesModel.FK_Folder_SecurityObject2">
+            <End Role="SecurityObject" EntitySet="SecurityObjects" />
+            <End Role="Folder" EntitySet="Folders" />
+          </AssociationSet>
+          </EntityContainer>
+        <EnumType Name="CatalogStatus" a:ExternalTypeName="WebDAVSharp.Data.Enums.CatalogStatus" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EnumType Name="Win32FileAttribute" a:ExternalTypeName="WebDAVSharp.Data.Enums.Win32FileAttribute" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+        <EntityType Name="Catalog">
+          <Key>
+            <PropertyRef Name="pk_CatalogId" />
+          </Key>
+          <Property Name="pk_CatalogId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Offline" Type="Boolean" Nullable="false" />
+          <Property Name="Server" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DatabaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fk_CatalogStatusId" Type="OnlineFilesModel.CatalogStatus" Nullable="false" />
+          <NavigationProperty Name="CatalogStatu" Relationship="OnlineFilesModel.FK_Catalog_CatalogStatus" FromRole="Catalog" ToRole="CatalogStatu" />
+          <NavigationProperty Name="FileDatas" Relationship="OnlineFilesModel.FK_FileData_Catalog" FromRole="Catalog" ToRole="FileData" />
+          <Property Name="fk_CatalogCollectionId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CatalogCollection" Relationship="OnlineFilesModel.FK_Catalog_CatalogCollection" FromRole="Catalog" ToRole="CatalogCollection" />
+        </EntityType>
+        <EntityType Name="CatalogStatu">
+          <Key>
+            <PropertyRef Name="pk_CatalogStatusId" />
+          </Key>
+          <Property Name="pk_CatalogStatusId" Type="OnlineFilesModel.CatalogStatus" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Catalogs" Relationship="OnlineFilesModel.FK_Catalog_CatalogStatus" FromRole="CatalogStatu" ToRole="Catalog" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="pk_FileId" />
+          </Key>
+          <Property Name="pk_FileId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FolderId" Type="Guid" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isRevisioned" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="MimeType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Folder" Relationship="OnlineFilesModel.FK_File_Folder" FromRole="File" ToRole="Folder" />
+          <NavigationProperty Name="FileDatas" Relationship="OnlineFilesModel.FK_FileData_File" FromRole="File" ToRole="FileData" />
+          <Property Name="Win32FileAttribute" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Owner" Relationship="OnlineFilesModel.FK_File_SecurityObject" FromRole="File" ToRole="SecurityObject" />
+          <Property Name="DeletedDt" Type="DateTime" Precision="3" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="DeletedById" Type="Guid" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="DeletedBy" Relationship="OnlineFilesModel.FK_File_SecurityObject1" FromRole="File" ToRole="SecurityObject" />
+          <Property Name="CreatedById" Type="Guid" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="FileSecurities" Relationship="OnlineFilesModel.FK_FileSecurity_File" FromRole="File" ToRole="FileSecurity" />
+          <NavigationProperty Name="CreatedBy" Relationship="OnlineFilesModel.FK_File_SecurityObject2" FromRole="File" ToRole="SecurityObject" />
+        </EntityType>
+        <EntityType Name="FileData">
+          <Key>
+            <PropertyRef Name="pk_FileDataId" />
+          </Key>
+          <Property Name="pk_FileDataId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FileId" Type="Guid" Nullable="false" />
+          <Property Name="Revision" Type="Int32" Nullable="false" />
+          <Property Name="Size" Type="Int32" Nullable="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fk_CatalogId" Type="Guid" Nullable="false" />
+          <Property Name="fk_ContentId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Catalog" Relationship="OnlineFilesModel.FK_FileData_Catalog" FromRole="FileData" ToRole="Catalog" />
+          <NavigationProperty Name="File" Relationship="OnlineFilesModel.FK_FileData_File" FromRole="FileData" ToRole="File" />
+        </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="pk_FolderId" />
+          </Key>
+          <Property Name="pk_FolderId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ParentFolderId" Type="Guid" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" Precision="3" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Files" Relationship="OnlineFilesModel.FK_File_Folder" FromRole="Folder" ToRole="File" />
+          <NavigationProperty Name="ChildFolders" Relationship="OnlineFilesModel.FK_Folder_Folder" FromRole="Folder" ToRole="Folder1" />
+          <NavigationProperty Name="ParentFolder" Relationship="OnlineFilesModel.FK_Folder_Folder" FromRole="Folder1" ToRole="Folder" />
+          <Property Name="fk_CatalogCollectionId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="CatalogCollection" Relationship="OnlineFilesModel.FK_Folder_CatalogCollection" FromRole="Folder" ToRole="CatalogCollection" />
+          <Property Name="Win32FileAttribute" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="OwnerId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Owner" Relationship="OnlineFilesModel.FK_Folder_SecurityObject" FromRole="Folder" ToRole="SecurityObject" />
+          <Property Name="DeletedDt" Type="DateTime" Precision="3" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="DeletedById" Type="Guid" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="DeletedBy" Relationship="OnlineFilesModel.FK_Folder_SecurityObject1" FromRole="Folder" ToRole="SecurityObject" />
+          <Property Name="CreatedById" Type="Guid" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="HomeFolderTo" Relationship="OnlineFilesModel.FK_SecurityObject_Folder" FromRole="Folder" ToRole="SecurityObject" />
+          <NavigationProperty Name="FolderSecurities" Relationship="OnlineFilesModel.FK_FolderSecurity_Folder" FromRole="Folder" ToRole="FolderSecurity" />
+          <NavigationProperty Name="CreatedBy" Relationship="OnlineFilesModel.FK_Folder_SecurityObject2" FromRole="Folder" ToRole="SecurityObject" />
+        </EntityType>
+        <Association Name="FK_Catalog_CatalogStatus">
+          <End Type="OnlineFilesModel.CatalogStatu" Role="CatalogStatu" Multiplicity="1" />
+          <End Type="OnlineFilesModel.Catalog" Role="Catalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogStatu">
+              <PropertyRef Name="pk_CatalogStatusId" />
+            </Principal>
+            <Dependent Role="Catalog">
+              <PropertyRef Name="fk_CatalogStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileData_Catalog">
+          <End Type="OnlineFilesModel.Catalog" Role="Catalog" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FileData" Role="FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catalog">
+              <PropertyRef Name="pk_CatalogId" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="fk_CatalogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_Folder">
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="1" />
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="fk_FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileData_File">
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FileData" Role="FileData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="pk_FileId" />
+            </Principal>
+            <Dependent Role="FileData">
+              <PropertyRef Name="fk_FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_Folder">
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="0..1" />
+          <End Type="OnlineFilesModel.Folder" Role="Folder1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="Folder1">
+              <PropertyRef Name="fk_ParentFolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SecurityObjects" Relationship="OnlineFilesModel.FK_SecurityObjectPermission_Permission" FromRole="Permission" ToRole="SecurityObjectPermission" />
+        </EntityType>
+        <EntityType Name="SecurityObject">
+          <Key>
+            <PropertyRef Name="SecurityObjectId" />
+          </Key>
+          <Property Name="SecurityObjectId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="ActiveDirectoryId" Type="Guid" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="IsGroup" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="LastLogInOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="SecurityObjectPermissions" Relationship="OnlineFilesModel.FK_SecurityObjectPermission_SecurityObject" FromRole="SecurityObject" ToRole="SecurityObjectPermission" />
+          <NavigationProperty Name="ObjectLockInfoes" Relationship="OnlineFilesModel.FK_ObjectLockInfo_SecurityObject" FromRole="SecurityObject" ToRole="ObjectLockInfo" />
+          <NavigationProperty Name="Files" Relationship="OnlineFilesModel.FK_File_SecurityObject" FromRole="SecurityObject" ToRole="File" />
+          <NavigationProperty Name="Folders" Relationship="OnlineFilesModel.FK_Folder_SecurityObject" FromRole="SecurityObject" ToRole="Folder" />
+          <NavigationProperty Name="Files1" Relationship="OnlineFilesModel.FK_File_SecurityObject1" FromRole="SecurityObject" ToRole="File" />
+          <NavigationProperty Name="Folders1" Relationship="OnlineFilesModel.FK_Folder_SecurityObject1" FromRole="SecurityObject" ToRole="Folder" />
+          <Property Name="HomeFolder" Type="Guid" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Folder" Relationship="OnlineFilesModel.FK_SecurityObject_Folder" FromRole="SecurityObject" ToRole="Folder" />
+          <NavigationProperty Name="FileSecurities" Relationship="OnlineFilesModel.FK_FileSecurity_SecurityObject" FromRole="SecurityObject" ToRole="FileSecurity" />
+          <NavigationProperty Name="FolderSecurities" Relationship="OnlineFilesModel.FK_FolderSecurity_SecurityObject" FromRole="SecurityObject" ToRole="FolderSecurity" />
+          <NavigationProperty Name="MyGroups" Relationship="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject" FromRole="SecurityObject" ToRole="SecurityObjectMembership" />
+          <NavigationProperty Name="MyMembers" Relationship="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject1" FromRole="SecurityObject" ToRole="SecurityObjectMembership" />
+          <NavigationProperty Name="Files2" Relationship="OnlineFilesModel.FK_File_SecurityObject2" FromRole="SecurityObject" ToRole="File" />
+          <NavigationProperty Name="Folders2" Relationship="OnlineFilesModel.FK_Folder_SecurityObject2" FromRole="SecurityObject" ToRole="Folder" />
+        </EntityType>
+        <EntityType Name="SecurityObjectPermission">
+          <Key>
+            <PropertyRef Name="SecurityObjectPermission1" />
+          </Key>
+          <Property Name="SecurityObjectPermission1" Type="Guid" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <Property Name="SecurityObjectId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Permission" Relationship="OnlineFilesModel.FK_SecurityObjectPermission_Permission" FromRole="SecurityObjectPermission" ToRole="Permission" />
+          <NavigationProperty Name="SecurityObject" Relationship="OnlineFilesModel.FK_SecurityObjectPermission_SecurityObject" FromRole="SecurityObjectPermission" ToRole="SecurityObject" />
+        </EntityType>
+        <Association Name="FK_SecurityObjectPermission_Permission">
+          <End Type="OnlineFilesModel.Permission" Role="Permission" Multiplicity="1" />
+          <End Type="OnlineFilesModel.SecurityObjectPermission" Role="SecurityObjectPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionId" />
+            </Principal>
+            <Dependent Role="SecurityObjectPermission">
+              <PropertyRef Name="PermissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectPermission_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.SecurityObjectPermission" Role="SecurityObjectPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectPermission">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetUserValidation_Result">
+          <Property Type="Guid" Name="SecurityObjectId" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" />
+          <Property Type="Guid" Name="ActiveDirectoryId" Nullable="true" />
+          <Property Type="Boolean" Name="IsGroup" Nullable="false" />
+          <Property Type="DateTime" Name="LastLogInOn" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="CatalogCollection">
+          <Key>
+            <PropertyRef Name="pk_CatalogCollectionId" />
+          </Key>
+          <Property Name="pk_CatalogCollectionId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Catalogs" Relationship="OnlineFilesModel.FK_Catalog_CatalogCollection" FromRole="CatalogCollection" ToRole="Catalog" />
+          <NavigationProperty Name="Folders" Relationship="OnlineFilesModel.FK_Folder_CatalogCollection" FromRole="CatalogCollection" ToRole="Folder" />
+        </EntityType>
+        <Association Name="FK_Catalog_CatalogCollection">
+          <End Type="OnlineFilesModel.CatalogCollection" Role="CatalogCollection" Multiplicity="1" />
+          <End Type="OnlineFilesModel.Catalog" Role="Catalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogCollection">
+              <PropertyRef Name="pk_CatalogCollectionId" />
+            </Principal>
+            <Dependent Role="Catalog">
+              <PropertyRef Name="fk_CatalogCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_CatalogCollection">
+          <End Type="OnlineFilesModel.CatalogCollection" Role="CatalogCollection" Multiplicity="1" />
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatalogCollection">
+              <PropertyRef Name="pk_CatalogCollectionId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="fk_CatalogCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ObjectLockInfo">
+          <Key>
+            <PropertyRef Name="ObjectGuid" />
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="ObjectGuid" Type="Guid" Nullable="false" />
+          <Property Name="Token" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isFolder" Type="Boolean" Nullable="false" />
+          <Property Name="LockScope" Type="Int32" Nullable="false" />
+          <Property Name="LockType" Type="Int32" Nullable="false" />
+          <Property Name="OwnerId" Type="Guid" Nullable="false" />
+          <Property Name="RequestedLockTimeout" Type="Double" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="Depth" Type="Int32" Nullable="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Owner" Relationship="OnlineFilesModel.FK_ObjectLockInfo_SecurityObject" FromRole="ObjectLockInfo" ToRole="SecurityObject" />
+        </EntityType>
+        
+        <Association Name="FK_ObjectLockInfo_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.ObjectLockInfo" Role="ObjectLockInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="ObjectLockInfo">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_File_SecurityObject1">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="0..1" />
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="DeletedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject1">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="0..1" />
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="DeletedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObject_Folder">
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="0..1" />
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="SecurityObject">
+              <PropertyRef Name="HomeFolder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FileSecurity">
+          <Key>
+            <PropertyRef Name="pk_FileSecurityId" />
+          </Key>
+          <Property Name="pk_FileSecurityId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="fk_FileId" Type="Guid" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="SecurityObjectId" Type="Guid" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canRead" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canWrite" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="File" Relationship="OnlineFilesModel.FK_FileSecurity_File" FromRole="FileSecurity" ToRole="File" />
+          <NavigationProperty Name="SecurityObject" Relationship="OnlineFilesModel.FK_FileSecurity_SecurityObject" FromRole="FileSecurity" ToRole="SecurityObject" />
+        </EntityType>
+        <EntityType Name="FolderSecurity">
+          <Key>
+            <PropertyRef Name="pk_FolderSecurityId" />
+          </Key>
+          <Property Name="pk_FolderSecurityId" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_FolderId" Type="Guid" Nullable="false" />
+          <Property Name="SecurityObjectId" Type="Guid" Nullable="false" />
+          <Property Name="canListObjects" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canCreateFiles" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canCreateFolders" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canDelete" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="canChangePermissions" Type="Boolean" Nullable="false" a:SetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <NavigationProperty Name="Folder" Relationship="OnlineFilesModel.FK_FolderSecurity_Folder" FromRole="FolderSecurity" ToRole="Folder" />
+          <NavigationProperty Name="SecurityObject" Relationship="OnlineFilesModel.FK_FolderSecurity_SecurityObject" FromRole="FolderSecurity" ToRole="SecurityObject" />
+        </EntityType>
+        <Association Name="FK_FileSecurity_File">
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FileSecurity" Role="FileSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="pk_FileId" />
+            </Principal>
+            <Dependent Role="FileSecurity">
+              <PropertyRef Name="fk_FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileSecurity_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FileSecurity" Role="FileSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="FileSecurity">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderSecurity_Folder">
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FolderSecurity" Role="FolderSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="pk_FolderId" />
+            </Principal>
+            <Dependent Role="FolderSecurity">
+              <PropertyRef Name="fk_FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FolderSecurity_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.FolderSecurity" Role="FolderSecurity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="FolderSecurity">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SecurityObjectMembership" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SecurityObjectId" Type="Guid" Nullable="false" />
+          <Property Name="GroupSecurityObjectId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="OwnerSecurityObject" Relationship="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject" FromRole="SecurityObjectMembership" ToRole="SecurityObject" />
+          <NavigationProperty Name="GroupSecurityObject" Relationship="OnlineFilesModel.FK_SecurityObjectMembership_SecurityObject1" FromRole="SecurityObjectMembership" ToRole="SecurityObject" />
+        </EntityType>
+        <Association Name="FK_SecurityObjectMembership_SecurityObject">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.SecurityObjectMembership" Role="SecurityObjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectMembership">
+              <PropertyRef Name="SecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SecurityObjectMembership_SecurityObject1">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.SecurityObjectMembership" Role="SecurityObjectMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="SecurityObjectMembership">
+              <PropertyRef Name="GroupSecurityObjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_File_SecurityObject2">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Folder_SecurityObject2">
+          <End Type="OnlineFilesModel.SecurityObject" Role="SecurityObject" Multiplicity="1" />
+          <End Type="OnlineFilesModel.Folder" Role="Folder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SecurityObject">
+              <PropertyRef Name="SecurityObjectId" />
+            </Principal>
+            <Dependent Role="Folder">
+              <PropertyRef Name="CreatedById" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnlineFilesModelStoreContainer" CdmEntityContainer="OnlineFilesEntities">
+          <EntitySetMapping Name="Catalogs">
+            <EntityTypeMapping TypeName="OnlineFilesModel.Catalog">
+              <MappingFragment StoreEntitySet="Catalog">
+                <ScalarProperty Name="fk_CatalogCollectionId" ColumnName="fk_CatalogCollectionId" />
+                <ScalarProperty Name="fk_CatalogStatusId" ColumnName="fk_CatalogStatusId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="Offline" ColumnName="Offline" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_CatalogId" ColumnName="pk_CatalogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatalogStatus">
+            <EntityTypeMapping TypeName="OnlineFilesModel.CatalogStatu">
+              <MappingFragment StoreEntitySet="CatalogStatus">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_CatalogStatusId" ColumnName="pk_CatalogStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="OnlineFilesModel.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DeletedById" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDt" ColumnName="DeletedDt" />
+                <ScalarProperty Name="OwnerId" ColumnName="Owner" />
+                <ScalarProperty Name="Win32FileAttribute" ColumnName="Win32FileAttribute" />
+                <ScalarProperty Name="MimeType" ColumnName="MimeType" />
+                <ScalarProperty Name="IsDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+                <ScalarProperty Name="isRevisioned" ColumnName="isRevisioned" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="fk_FolderId" ColumnName="fk_FolderId" />
+                <ScalarProperty Name="pk_FileId" ColumnName="pk_FileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileDatas">
+            <EntityTypeMapping TypeName="OnlineFilesModel.FileData">
+              <MappingFragment StoreEntitySet="FileData">
+                <ScalarProperty Name="fk_ContentId" ColumnName="fk_ContentId" />
+                <ScalarProperty Name="fk_CatalogId" ColumnName="fk_CatalogId" />
+                <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="fk_FileId" ColumnName="fk_FileId" />
+                <ScalarProperty Name="pk_FileDataId" ColumnName="pk_FileDataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Folders">
+            <EntityTypeMapping TypeName="OnlineFilesModel.Folder">
+              <MappingFragment StoreEntitySet="Folder">
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DeletedById" ColumnName="DeletedBy" />
+                <ScalarProperty Name="DeletedDt" ColumnName="DeletedDt" />
+                <ScalarProperty Name="OwnerId" ColumnName="Owner" />
+                <ScalarProperty Name="IsDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="Win32FileAttribute" ColumnName="Win32FileAttribute" />
+                <ScalarProperty Name="fk_CatalogCollectionId" ColumnName="fk_CatalogCollectionId" />
+                <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="fk_ParentFolderId" ColumnName="fk_ParentFolderId" />
+                <ScalarProperty Name="pk_FolderId" ColumnName="pk_FolderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="OnlineFilesModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityObjects">
+            <EntityTypeMapping TypeName="OnlineFilesModel.SecurityObject">
+              <MappingFragment StoreEntitySet="SecurityObject">
+                <ScalarProperty Name="HomeFolder" ColumnName="HomeFolder" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastLogInOn" ColumnName="LastLogInOn" />
+                <ScalarProperty Name="IsGroup" ColumnName="IsGroup" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="ActiveDirectoryId" ColumnName="ActiveDirectoryId" />
+                <ScalarProperty Name="SecurityObjectId" ColumnName="SecurityObjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityObjectPermissions">
+            <EntityTypeMapping TypeName="OnlineFilesModel.SecurityObjectPermission">
+              <MappingFragment StoreEntitySet="SecurityObjectPermission">
+                <ScalarProperty Name="SecurityObjectId" ColumnName="SecurityObjectId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="SecurityObjectPermission1" ColumnName="SecurityObjectPermission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUserValidation" FunctionName="OnlineFilesModel.Store.GetUserValidation">
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CatalogCollections">
+            <EntityTypeMapping TypeName="OnlineFilesModel.CatalogCollection">
+              <MappingFragment StoreEntitySet="CatalogCollection">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_CatalogCollectionId" ColumnName="pk_CatalogCollectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ObjectLockInfoes">
+            <EntityTypeMapping TypeName="OnlineFilesModel.ObjectLockInfo">
+              <MappingFragment StoreEntitySet="ObjectLockInfo">
+                <ScalarProperty Name="CreateDt" ColumnName="CreateDt" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Depth" ColumnName="Depth" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="RequestedLockTimeout" ColumnName="RequestedLockTimeout" />
+                <ScalarProperty Name="OwnerId" ColumnName="Owner" />
+                <ScalarProperty Name="LockType" ColumnName="LockType" />
+                <ScalarProperty Name="LockScope" ColumnName="LockScope" />
+                <ScalarProperty Name="isFolder" ColumnName="isFolder" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="ObjectGuid" ColumnName="ObjectGuid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FileSecurities">
+            <EntityTypeMapping TypeName="OnlineFilesModel.FileSecurity">
+              <MappingFragment StoreEntitySet="FileSecurity">
+                <ScalarProperty Name="CanDelete" ColumnName="CanDelete" />
+                <ScalarProperty Name="canWrite" ColumnName="canWrite" />
+                <ScalarProperty Name="canRead" ColumnName="canRead" />
+                <ScalarProperty Name="SecurityObjectId" ColumnName="SecurityObjectId" />
+                <ScalarProperty Name="fk_FileId" ColumnName="fk_FileId" />
+                <ScalarProperty Name="pk_FileSecurityId" ColumnName="pk_FileSecurityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FolderSecurities">
+            <EntityTypeMapping TypeName="OnlineFilesModel.FolderSecurity">
+              <MappingFragment StoreEntitySet="FolderSecurity">
+                <ScalarProperty Name="canChangePermissions" ColumnName="canChangePermissions" />
+                <ScalarProperty Name="canDelete" ColumnName="canDelete" />
+                <ScalarProperty Name="canCreateFolders" ColumnName="canCreateFolders" />
+                <ScalarProperty Name="canCreateFiles" ColumnName="canCreateFiles" />
+                <ScalarProperty Name="canListObjects" ColumnName="canListObjects" />
+                <ScalarProperty Name="SecurityObjectId" ColumnName="SecurityObjectId" />
+                <ScalarProperty Name="fk_FolderId" ColumnName="fk_FolderId" />
+                <ScalarProperty Name="pk_FolderSecurityId" ColumnName="pk_FolderSecurityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SecurityObjectMemberships">
+            <EntityTypeMapping TypeName="OnlineFilesModel.SecurityObjectMembership">
+              <MappingFragment StoreEntitySet="SecurityObjectMembership">
+                <ScalarProperty Name="GroupSecurityObjectId" ColumnName="MemberOfSecurityObjectId" />
+                <ScalarProperty Name="SecurityObjectId" ColumnName="SecurityObjectId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSecurityTokens" FunctionName="OnlineFilesModel.Store.GetSecurityTokens" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OnlineFilesModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

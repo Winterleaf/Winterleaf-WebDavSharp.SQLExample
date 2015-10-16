@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.Data", "WebDAVSharp.Data\WebDAVSharp.Data.csproj", "{B45C908C-A547-46B7-800C-559022B1D0E1}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WebDAVSharp.SQL.Database.Catalog", "WebDAVSharp.SQL.Database\WebDAVSharp.SQL.Database.Catalog.sqlproj", "{3E205070-B83D-4AAB-87F6-0D2A1C04098B}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "WebDAVSharp.SQL.Database.File", "WebDAVSharp.SQL.Database.File\WebDAVSharp.SQL.Database.File.sqlproj", "{7775DC58-066A-49A3-90A6-97F860A16957}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDAVSharp.SQL", "WebDAVSharp.SQL\WebDAVSharp.SQL.csproj", "{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E7D0186-81B3-4DE5-90B0-A10940C03BB3}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseBinaries|Any CPU = ReleaseBinaries|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{B45C908C-A547-46B7-800C-559022B1D0E1}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{3E205070-B83D-4AAB-87F6-0D2A1C04098B}.ReleaseBinaries|Any CPU.Deploy.0 = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+		{7775DC58-066A-49A3-90A6-97F860A16957}.ReleaseBinaries|Any CPU.Deploy.0 = Release|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.ReleaseBinaries|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E6F7C0-99FF-4469-B93A-2CA4A801855C}.ReleaseBinaries|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
